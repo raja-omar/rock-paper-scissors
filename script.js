@@ -41,12 +41,6 @@ function playRound(playerSelection, computerSelection) {
     else if (playerSelection.toLowerCase() == "scissors" && computerSelection == "Scissors") { "Draw!" }
 }
 
-
-
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection))
-
 function game() {
     playRound(prompt("Pick rock, paper or scissors"), getComputerChoice())
     playRound(prompt("Pick rock, paper or scissors"), getComputerChoice())
