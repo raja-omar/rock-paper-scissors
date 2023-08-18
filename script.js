@@ -1,5 +1,8 @@
 let playerScore = 0
 let computerScore = 0
+const btns = document.querySelectorAll("button")
+const scoreDiv = document.querySelector("#score")
+const result = document.querySelector('#result')
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3)
     if (choice == 0) return "Rock"
@@ -8,54 +11,56 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
+    result.textContent = ""
     if (playerSelection.toLowerCase() == "rock" && computerSelection == "Rock") {
-        return "Draw"
+        console.log("Draw")
     }
     else if (playerSelection.toLowerCase() == "rock" && computerSelection == "Paper") {
         computerScore++
-        return "You Lose! Paper beats Rock"
+        console.log("You Lose! Paper beats Rock")
     }
     else if (playerSelection.toLowerCase() == "rock" && computerSelection == "Scissors") {
         playerScore++
-        return "You Win! Rock beats Scissors"
+        console.log("You Win! Rock beats Scissors")
     }
     else if (playerSelection.toLowerCase() == "paper" && computerSelection == "Rock") {
         playerScore++
-        return "You Win! Paper beats Rock"
+        console.log("You Win! Paper beats Rock")
     }
     else if (playerSelection.toLowerCase() == "paper" && computerSelection == "Paper") {
-        return "Draw!"
+        console.log("Draw!")
     }
     else if (playerSelection.toLowerCase() == "paper" && computerSelection == "Scissors") {
         computerScore++
-        return "You Lose! Scissors beat Paper"
+        console.log("You Lose! Scissors beat Paper")
     }
     else if (playerSelection.toLowerCase() == "scissors" && computerSelection == "Rock") {
         computerScore++
-        return "You Lose! Rock beats Scissors"
+        console.log("You Lose! Rock beats Scissors")
     }
     else if (playerSelection.toLowerCase() == "scissors" && computerSelection == "Paper") {
         playerScore++
-        return "You Win! Scissors beat Paper"
+        console.log("You Win! Scissors beat Paper")
     }
-    else if (playerSelection.toLowerCase() == "scissors" && computerSelection == "Scissors") { "Draw!" }
+    else if (playerSelection.toLowerCase() == "scissors" && computerSelection == "Scissors") { console.log("Draw!") }
+    scoreDiv.textContent = `Playerscore: ${playerScore} Computerscore: ${computerScore}`
+    if (playerScore == 5 || computerScore == 5) {
+        checkWin()
+    }
 }
 
-function game() {
-    playRound(prompt("Pick rock, paper or scissors"), getComputerChoice())
-    playRound(prompt("Pick rock, paper or scissors"), getComputerChoice())
-    playRound(prompt("Pick rock, paper or scissors"), getComputerChoice())
-    playRound(prompt("Pick rock, paper or scissors"), getComputerChoice())
-    playRound(prompt("Pick rock, paper or scissors"), getComputerChoice())
-
-    if (playerScore > computerScore) {
+function checkWin() {
+    if (playerScore == 5) {
         console.log(`You've won ${playerScore} out of 5 games so you win`)
-    } else if (computerScore > playerScore) {
+        result.textContent = "YOU WIN!"
+    } else if (computerScore == 5) {
         console.log(`Computer has won ${computerScore} out of 5 games so you lose`)
+        result.textContent = "YOU LOSE!"
     } else {
-        console.log("It's a draw!")
+        console.log("Draw")
+        result.textContent = "DRAW!"
     }
     playerScore = 0
     computerScore = 0
 }
-game()
+btns.forEach(btn => btn.addEventListener('click', () => playRound(btn.textContent, getComputerChoice())));
